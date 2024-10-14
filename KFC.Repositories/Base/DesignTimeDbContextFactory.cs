@@ -1,18 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace KFC.Repositories.Base
 {
-    //public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<KFCDBContext>
-    //{
-    //    public KFCDBContext CreateDbContext(string[] args)
-    //    {
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<KFCDBContext>
+    {
+        public KFCDBContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<KFCDBContext>();
 
-    //        var builder = new DbContextOptionsBuilder<KFCDBContext>();
+            // Load configuration from appsettings.json
+            //var config = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json")
+            //    .Build();
 
-    //        builder.UseSqlServer("server =103.48.193.165,1433;database=XuongMay-dev;uid=xuongmaydev;pwd=daylamatkhaunengacnhienchua123@123;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true;Integrated Security=false;Timeout=30;");
+            //var connectionString = config.GetConnectionString("DefaultConnection");
 
-    //        return new KFCDBContext(builder.Options);
-    //    }
-    //}
+            builder.UseSqlServer("server=(local);database=KFC;uid=sa;pwd=12345;Encrypt=false;TrustServerCertificate=true;Integrated Security=false;Timeout=30;");
+
+            return new KFCDBContext(builder.Options);
+        }
+    }
 }

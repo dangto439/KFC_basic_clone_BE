@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using KFC.Core.Base;
-using KFC.Core.Utils;
 using KFC.Entity;
 using KFC.Repositories.Base;
 using KFC.Repositories.SeedData;
@@ -20,25 +19,24 @@ namespace KFC.API.DI
         {
             services.ConfigSwagger();
             services.AddAuthenJwt(configuration);
-            //services.AddDatabase(configuration);
+            services.AddDatabase(configuration);
             services.AddServices();
             services.ConfigRoute();
             services.ConfigCors();
             services.ConfigCorsSignalR();
             services.JwtSettingsConfig(configuration);
-            //services.IntSeedData();
-            //services.AddIdentity(configuration);
-            //
+            services.IntSeedData();
+            services.AddIdentity(configuration);
             services.AddHttpContextAccessor();
         }
-        //public static void AddIdentity(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
-        //    {
-        //    })
-        //     .AddEntityFrameworkStores<KFCDBContext>()
-        //     .AddDefaultTokenProviders();
-        //}
+        public static void AddIdentity(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddIdentity<User, Role>(options =>
+            {
+            })
+             .AddEntityFrameworkStores<KFCDBContext>()
+             .AddDefaultTokenProviders();
+        }
         public static void JwtSettingsConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton(option =>
@@ -164,26 +162,26 @@ namespace KFC.API.DI
             });
         }
 
-        //public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    services.AddDbContext<KFCDBContext>(options =>
-        //    {
-        //        options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("MyCnn"));
-        //    });
-        //}
+        public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<KFCDBContext>(options =>
+            {
+                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("MyCnn"));
+            });
+        }
 
         public static void AddServices(this IServiceCollection services)
         {
             services.AddLogging(); // Đăng ký logging
         }
 
-        //public static void IntSeedData(this IServiceCollection services)
-        //{
-        //    using var scope = services.BuildServiceProvider().CreateScope();
-        //    using var context = scope.ServiceProvider.GetRequiredService<KFCDBContext>();
-        //    var initialiser = new ApplicationDbContextInitialiser(context);
-        //    initialiser.Initialise();
-        //}
+        public static void IntSeedData(this IServiceCollection services)
+        {
+            using var scope = services.BuildServiceProvider().CreateScope();
+            using var context = scope.ServiceProvider.GetRequiredService<KFCDBContext>();
+            var initialiser = new ApplicationDbContextInitialiser(context);
+            initialiser.Initialise();
+        }
 
     }
 }

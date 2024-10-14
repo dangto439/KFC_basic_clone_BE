@@ -37,7 +37,7 @@ namespace KFC.Services
         }
         public static void AddFixedSaltPasswordHasher(this IServiceCollection services)
         {
-            services.AddScoped<IPasswordHasher<ApplicationUser>, FixedSaltPasswordHasher<ApplicationUser>>();
+            services.AddScoped<IPasswordHasher<User>, FixedSaltPasswordHasher<User>>();
         }
 
     }
