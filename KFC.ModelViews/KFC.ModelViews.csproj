@@ -23,4 +23,13 @@
     <ProjectReference Include="..\KFC.Mapper\KFC.Mapper.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ModelViews\CategoryModels\" />
+    <Folder Include="ModelViews\VoucherModels\" />
+    <Folder Include="ModelViews\RoleModels\" />
+    <Folder Include="ModelViews\ProductModels\" />
+    <Folder Include="ModelViews\OrderItemModels\" />
+    <Folder Include="ModelViews\OrderModels\" />
+  </ItemGroup>
+
 </Project>

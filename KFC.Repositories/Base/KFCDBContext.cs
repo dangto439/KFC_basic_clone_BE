@@ -1,11 +1,14 @@
 ﻿using KFC.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace KFC.Repositories.Base
 {
-    public class KFCDBContext : DbContext
+    public class KFCDBContext : IdentityDbContext<User, Role, Guid>
     {
-        public KFCDBContext(DbContextOptions<KFCDBContext> options) : base(options)
+        public KFCDBContext(DbContextOptions<KFCDBContext> options)
+            : base(options)
         {
         }
 
@@ -18,7 +21,6 @@ namespace KFC.Repositories.Base
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
-        // OnModelCreating for configuring relationships and constraints
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -59,8 +61,6 @@ namespace KFC.Repositories.Base
                 .HasOne(oi => oi.Product)
                 .WithMany()
                 .HasForeignKey(oi => oi.ProductId);
-
-            // Add any further configurations, constraints, or relationships here.
         }
     }
 }

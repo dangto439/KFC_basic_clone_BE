@@ -15,10 +15,10 @@ namespace KFC.Repositories.Repositories
         public GenericRepository(KFCDBContext dbContext)
         {
             _context = dbContext;
-            //_dbSet = _context.Set<T>();
+            _dbSet = _context.Set<T>();
         }
 
-        public IQueryable<T> Entities => null;/*_context.Set<T>();*/
+        public IQueryable<T> Entities => _context.Set<T>();
 
         public void Delete(object id)
         {
@@ -62,8 +62,7 @@ namespace KFC.Repositories.Repositories
 
         public List<T> GetAll()
         {
-            //return _context.Set<T>().ToList();
-            return null;
+            return _context.Set<T>().ToList();
         }
 
         public async Task<IQueryable<T>> GetAllQueryableAsync()

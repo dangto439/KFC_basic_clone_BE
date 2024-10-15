@@ -64,7 +64,7 @@ namespace KFC.API.Middleware
                 string idUser = Authentication.GetUserIdFromHttpContext(context);
                 if (Guid.TryParse(idUser, out Guid guidId))
                 {
-                    User? user = unitOfWork.GetRepository<User>().Entities.Where(x => x.Id == guidId.ToString("N") & !x.DeletedTime.HasValue).FirstOrDefault();
+                    User? user = unitOfWork.GetRepository<User>().Entities.Where(x => x.Id.ToString() == guidId.ToString("N") & !x.DeletedTime.HasValue).FirstOrDefault();
                     if(user is null)
                     {
                         isPersmission = false;

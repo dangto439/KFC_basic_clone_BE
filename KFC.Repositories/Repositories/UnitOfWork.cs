@@ -40,17 +40,17 @@ namespace KFC.Repositories.Repositories
 
         public void BeginTransaction()
         {
-            //_dbContext.Database.BeginTransaction();
+            _dbContext.Database.BeginTransaction();
         }
 
         public void CommitTransaction()
         {
-            //_dbContext.Database.CommitTransaction();
+            _dbContext.Database.CommitTransaction();
         }
 
         public void RollBack()
         {
-            //_dbContext.Database.RollbackTransaction();
+            _dbContext.Database.RollbackTransaction();
         }
     }
 }
